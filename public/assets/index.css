@@ -1,0 +1,99 @@
+@import url('https://fonts.googleapis.com/css2?family=Fuzzy+Bubbles:wght@400;700&family=Winky+Sans:ital,wght@0,300..900;1,300..900&display=swap');
+
+body {
+    padding: 0px;
+    margin: 0px;
+
+    font-family: Winky Sans, sans-serif;
+}
+
+div.content {
+    display: flex;
+    min-height: 100vh;
+}
+
+div.content .sidebar {
+    background-color: #4e4640;
+    color: white;
+
+    text-align: center;
+
+    min-height: 100px;
+    min-width: 256px;
+    flex-basis: 256px;
+    box-sizing: border-box;
+
+    padding: 4px 8px
+}
+
+div.content .notes {
+    background-image: radial-gradient(circle at center, #ccc 1px, transparent 1px);
+    background-size: 16px 16px;
+    background-color: #fff;
+    background-repeat: round;
+
+    min-height: 100px;
+    flex-grow: 1;
+
+    padding: 4px 8px;
+}
+
+div.note {
+    display: inline-block;
+    width: 300px;
+    padding: 4px;
+    position: relative;
+
+    box-sizing: border-box;
+
+    border: 4px solid rgba(0, 0, 0, 0.25);
+    border-radius: 12px;
+
+    font-size: 16pt;
+
+    font-family: Fuzzy Bubbles, cursive;
+    background-color: yellow;
+    color: black;
+
+    .text {
+        text-align: center;
+    }
+
+    &.new-note .template-text {
+        position: absolute;
+        top: 4px;
+        left: 0;
+        width: 100%;
+        pointer-events: none;
+
+        color: #888;
+    }
+
+    .button-bar {
+        text-align: center;
+
+        button {
+            background-color: rgba(255, 255, 255, 0);
+            color: black;
+            font-family: Fuzzy Bubbles, cursive;
+            font-size: 12pt;
+            border: 2px dotted black;
+
+            padding: 4px 8px;
+            border-radius: 12px;
+            outline: none;
+
+
+            &:hover {
+                transition: 0.2s;
+                background-color: rgba(255, 255, 255, 0.666)
+            }
+
+            &:active {
+                transition: 0.2s;
+                background-color: rgba(255, 255, 255, 1);
+                border: 2px dotted white;
+            }
+        }
+    }
+}

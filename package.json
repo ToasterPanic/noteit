@@ -1,0 +1,23 @@
+{
+  "name": "noteit",
+  "version": "1.0.0",
+  "description": "Basic sticky notes web app.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ToasterPanic/noteit.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ToasterPanic/noteit/issues"
+  },
+  "homepage": "https://github.com/ToasterPanic/noteit#readme",
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
