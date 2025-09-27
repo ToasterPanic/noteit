@@ -59,6 +59,20 @@ div.note {
         text-align: center;
     }
 
+    .small-text {
+        font-size: 11pt;
+    }
+
+    &.account-status {
+        font-size: 14pt; 
+        width: 248px;
+
+        background-color: white;
+        position: absolute;
+        left: 4px;
+        bottom: 4px;
+    }
+
     &.new-note .template-text {
         position: absolute;
         top: 4px;

@@ -1,28 +1,65 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Noteit</title>
 
-        <link rel="stylesheet" href="assets/index.css">
-        <script src="assets/jquery.slim.js"></script>
-    </head>
-    <body>
-        <div class="content">
-            <div class="sidebar">
-                <h1>Noteit</h1>
+<head>
+    <title>Noteit</title>
 
-                <div class="note new-note" style="width: 100%">
-                    <div class="template-text">Type here...</div>
-                    <div contenteditable="plaintext-only" class="text"></div>
-                    
-                    <div class="button-bar">
-                        <button class="create">Create</button>
-                    </div>
+    <link rel="stylesheet" href="assets/index.css">
+    <script src="assets/jquery.slim.js"></script>
+</head>
+
+<body>
+    <div class="content">
+        <div class="sidebar">
+            <h1>Noteit</h1>
+
+            <div class="note new-note" style="width: 100%">
+                <div class="template-text">Type here...</div>
+                <div contenteditable="plaintext-only" class="text"></div>
+
+                <div class="button-bar">
+                    <button class="create">Create</button>
                 </div>
             </div>
-            <div class="notes"><h2>My Notes</h2></div>
-        </div>
 
-        <script src="assets/index.js"></script>
-    </body>
+            <br><br>
+
+            <div class="note" style="width: 100%; background-color: white;">
+                <div class="small-text">local storage used</div>
+                <span class="space-taken"></span> / 500KB
+
+                <div class="small-text">cloud storage taken</div>
+                <span class="cloud-space-taken"></span> / 100KB
+
+                <div class="small-text">notes taken</div>
+                <span class="notes-taken"></span>
+            </div>
+
+            <br><br>
+
+            <div class="note" style="width: 100%; background-color: white;">
+                <div class="button-bar">
+                    <button class="sync-cloud-notes">Sync Cloud Notes</button>
+                </div>
+            </div>
+
+            <div class="note account-status" style="background-color: white;">
+                Not signed in
+                <div class="button-bar">
+                    <button class="sign-in">Sign In</button>
+                    <button class="register">Register</button>
+                </div>
+            </div>
+        </div>
+        <div class="notes">
+            <h2>Cloud-Synced Notes</h2>
+            <span class="cloud-notes"></span>
+            <h2>My Notes</h2>
+            <span class="my-notes"></span>
+        </div>
+    </div>
+
+    <script src="assets/index.js"></script>
+</body>
+
 </html>

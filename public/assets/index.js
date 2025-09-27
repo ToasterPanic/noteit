@@ -1,4 +1,36 @@
-const notes = []
+let data = {
+    notes: []
+}
+let storageUsed = 0
+const windows = {}
+
+// TODO: custom themes?
+const themes = {
+    "yellow": {
+        color: "black",
+        backgroundColor: "yellow"
+    },
+    "pink": {
+        color: "black",
+        backgroundColor: "#fa76ffff"
+    },
+    "purple": {
+        color: "black",
+        backgroundColor: "#b156dfff"
+    },
+    "blue": {
+        color: "black",
+        backgroundColor: "#599cb1ff"
+    },
+    "black": {
+        color: "#ddd",
+        backgroundColor: "#222"
+    },
+    "white": {
+        color: "black",
+        backgroundColor: "white"
+    },
+}
 
 $(".new-note div.text").on("input", (event) => {
     let text = $(".new-note div.text").text()
@@ -7,38 +39,66 @@ $(".new-note div.text").on("input", (event) => {
         $(".new-note div.template-text").css("display", "block")
     } else {
         $(".new-note div.template-text").css("display", "none")
-        
+
     }
 })
 
+// Creates a new sticky note element, its hooks and other bits.
 function newElement(id) {
     let element = $(`<div class="note">
                     <div contenteditable="plaintext-only" class="text">I have 500 frogs and they are all named after me I love myself</div>
                     
                     <div class="button-bar">
                         <button class="pop-out">Pop Out</button>
+                        <button class="recolor">Recolor</button>
                         <button class="delete">Delete</button>
                     </div>
                 </div>`)
 
-    
+
     element.attr("id", id)
 
     element.find("button.pop-out").on("click", (event) => {
-        let index = notes.findIndex((item) => item.id == id)
+        let note = data.notes.find((item) => item.id == id)
+        element.css("display", "none")
 
-        if (index) {
-            notes = notes.splice(index, 1)
+        var noteWindow = window.open("", note.id, "width=300,height=180,status=no,toolbar=no")
+
+        // By no means the prettiest nor best solution, but it works!
+        noteWindow.document.write(`<!DOCTYPE html>
+<html>
+    <head>
+        <title>Note</title>
+
+        <link rel="stylesheet" href="/assets/note.css">
+    </head>
+    <body>
+        <div class="content">
+            ${note.content}
+        </div>
+    </body>
+</html>`)
+
+        windows[id] = noteWindow
+    })
+
+    element.find("button.recolor").on("click", (event) => {
+        let note = data.notes.find((item) => item.id == id)
+
+        if (note) {
+            note.theme = "purple"
         }
-
-        element.remove()
+        element.css({
+            "background-color": themes[note.theme].backgroundColor,
+            "color": themes[note.theme].color
+        })
     })
 
     element.find("button.delete").on("click", (event) => {
-        let index = notes.findIndex((item) => item.id == id)
+        let index = data.notes.findIndex((item) => item.id == id)
 
-        if (index) {
-            notes = notes.splice(index, 1)
+        if (index != -1) {
+            data.notes.splice(index, 1)
         }
 
         element.remove()
@@ -49,38 +109,72 @@ function newElement(id) {
 
 $(".new-note button.create").on("click", (event) => {
     let note = {
-
+        creationDate: Date.now(),
+        content: $(".new-note div.text").text(),
+        id: 1,
+        theme: "yellow"
     }
 
-    note.creationDate = Date.now()
-    note.content = $(".new-note div.text").text()
-    note.id = 1
-
-    notes.push(note)
+    data.notes.push(note)
 
     let element = newElement(note.id)
-    
+
     element.attr("id", note.id)
     element.find(".text").text(note.content)
+
+    element.css({
+        "background-color": themes[note.theme].backgroundColor,
+        "color": themes[note.theme].color
+    })
 
     $(".notes").append(element)
 })
 
+// Updates notes, creating element for those who don't have one.
 function updateNotes() {
-    for (let i = 0; i < notes.length; ++i) {
-        let note = notes[i]
+    for (let i = 0; i < data.notes.length; ++i) {
+        let note = data.notes[i]
 
         let element = $("div.note#" + note.id)
 
-        if (!element) {
+        if (element.length < 1) {
             let element = newElement(note.id)
-    
+
             element.attr("id", note.id)
             element.find(".text").text(note.content)
+
+            element.css({
+                "background-color": themes[note.theme].backgroundColor,
+                "color": themes[note.theme].color
+            })
 
             $(".notes").append(element)
         }
     }
 }
 
+// Load local storage items
+let newData = localStorage.getItem("data")
+
+if (newData) {
+    data = JSON.parse(newData)
+}
+
+// Update notes now so we can get old notes loaded in
 updateNotes()
+
+// Automatic interval, for saving data, caluclating storage, etc.
+function interval() {
+    let text = JSON.stringify(data)
+
+    storageUsed = text.length / 1024
+    
+    $(".space-taken").text(Math.round(storageUsed))
+    $(".notes-taken").text(data.notes.length)
+
+    localStorage.setItem("data", text)
+}
+
+setInterval(interval, 0.5e3)
+
+interval()
