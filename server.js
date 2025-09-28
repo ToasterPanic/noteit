@@ -208,12 +208,20 @@ app.post('/api/sign-in', (req, res) => {
             res.json({
                 success: true
             })
+
+            return
         }
     } catch (e) {
         res.json({
             error: true
         })
+
+        return
     }
+
+    res.json({
+        error: true
+    })
 })
 
 app.listen(config.port, () => {
