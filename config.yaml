@@ -1,9 +1,9 @@
-port: 3000
+port: 3001
 
 # Maximum amount of notes. Set to -1 to disable.
 maxNotesPerUser: 0
 # Maximum amount of KB per user. Set to -1 to disable.
 maxKBPerUser: 100
 
-# Whether users should be able to create new accounts.
+# Whether users should be able to create new accounts. Doesn't work right now
 allowSignups: true

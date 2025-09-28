@@ -99,7 +99,7 @@ function newElement(id) {
         let note = data.notes.find((item) => item.id == id)
 
         if (note) {
-            note.theme = "purple"
+            note.theme = (note.theme == "purple") ? "yellow" : "purple"
         }
 
         notesToPush.push(id)

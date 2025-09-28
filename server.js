@@ -14,7 +14,7 @@ if (!fs.existsSync("userdata")) {
 }
 
 // Cookie parser for cookie reading
-app.use(cookieParser('my secret here'))
+app.use(cookieParser('secret'))
 
 // Get request bodies
 app.use(express.json())
