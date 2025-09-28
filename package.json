@@ -18,6 +18,8 @@
   },
   "homepage": "https://github.com/ToasterPanic/noteit#readme",
   "dependencies": {
-    "express": "^5.1.0"
+    "cookie-parser": "^1.4.7",
+    "express": "^5.1.0",
+    "js-yaml": "^4.1.0"
   }
 }

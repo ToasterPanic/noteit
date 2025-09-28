@@ -1,0 +1,21 @@
+# Should this user be able to access the control panel?
+allowControlPanel: false
+
+# Should this user be able to publicly share notes?
+allowSharingNotesPublicly: true
+# Shoudl this user be able to privately share notes between users?
+allowSharingNotesPrivately: true
+
+# The nickname used in emails and on the website.
+nickname: Default User
+
+# The user's email, for email 2FA.
+email: me@owouw.us
+
+# The user's password. Yes it's stored in plaintext. You shouldn't be using this as a production app anyways.
+password: siege2025
+
+# passwordHash: I would put my password's hash here... IF I HAD 
+
+# The user's token.
+token: cookies

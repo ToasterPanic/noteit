@@ -12,8 +12,46 @@ div.content {
     min-height: 100vh;
 }
 
+div.popup {
+    transition: 0.2s;
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0);
+    z-index: 20;
+    backdrop-filter: blur(0px);
+    pointer-events: none;
+
+    .box {
+        position: relative;
+        left: -50%;
+        top: 50%;
+        width: 360px;
+        padding: 4px 8px;
+        border: 4px solid rgba(0, 0, 0, 0.25);
+        border-radius: 12px;
+        background-color: white;
+        transform: translate(-50%, -50%);
+
+        text-align: center;
+    }
+}
+
+div.popup.visible {
+    transition: 0.2s;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+
+    pointer-events: all;
+
+    .box {
+        /*transitoio;*/
+        left: 50%;
+    }
+}
+
 div.content .sidebar {
-    background-color: #4e4640;
+    background-color: #383735;
     color: white;
 
     text-align: center;
@@ -22,6 +60,8 @@ div.content .sidebar {
     min-width: 256px;
     flex-basis: 256px;
     box-sizing: border-box;
+
+    border-right: 4px solid rgba(0, 0, 0, 0.15);
 
     padding: 4px 8px
 }
@@ -56,7 +96,7 @@ div.note {
     color: black;
 
     .text {
-        text-align: center;
+        text-align: left;
     }
 
     .small-text {
@@ -64,7 +104,7 @@ div.note {
     }
 
     &.account-status {
-        font-size: 14pt; 
+        font-size: 14pt;
         width: 248px;
 
         background-color: white;
@@ -85,29 +125,29 @@ div.note {
 
     .button-bar {
         text-align: center;
+    }
+}
 
-        button {
-            background-color: rgba(255, 255, 255, 0);
-            color: black;
-            font-family: Fuzzy Bubbles, cursive;
-            font-size: 12pt;
-            border: 2px dotted black;
+button {
+    background-color: rgba(255, 255, 255, 0);
+    color: black;
+    font-family: Fuzzy Bubbles, cursive;
+    font-size: 12pt;
+    border: 2px dotted black;
 
-            padding: 4px 8px;
-            border-radius: 12px;
-            outline: none;
+    padding: 4px 8px;
+    border-radius: 12px;
+    outline: none;
 
 
-            &:hover {
-                transition: 0.2s;
-                background-color: rgba(255, 255, 255, 0.666)
-            }
+    &:hover {
+        transition: 0.2s;
+        background-color: rgba(255, 255, 255, 0.666)
+    }
 
-            &:active {
-                transition: 0.2s;
-                background-color: rgba(255, 255, 255, 1);
-                border: 2px dotted white;
-            }
-        }
+    &:active {
+        transition: 0.2s;
+        background-color: rgba(255, 255, 255, 1);
+        border: 2px dotted white;
     }
 }
