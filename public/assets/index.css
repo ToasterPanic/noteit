@@ -93,10 +93,11 @@ div.note {
 
     font-family: Fuzzy Bubbles, cursive;
     background-color: yellow;
-    color: black;
+    color: black; 
 
     .text {
         text-align: left;
+        min-height: 32px;
     }
 
     .small-text {
