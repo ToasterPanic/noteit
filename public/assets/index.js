@@ -170,11 +170,23 @@ $(".new-note button.create").on("click", (event) => {
 })
 
 $(".popup.sign-in .submit").on("click", (event) => {
-    $.post("/api/sign-in", {})
+    $.ajax({
+        url: "/api/sign-in", // Replace with your actual API endpoint
+        type: "POST",
+        data: JSON.stringify({
+            username: $(".popup.sign-in .username").val(),
+            password: $(".popup.sign-in .password").val()
+        }),
+        contentType: "application/json",
+        dataType: "json"
+    })
         .done((body) => {
-            console.log(body)
+        if (body.success) {
             document.location.reload()
-        })
+        } else {
+            alert("Failed to sign in. Check if you typed your info in correctly, then try again.")
+        }
+    })
 })
 
 // Updates notes, creating element for those who don't have one.
@@ -200,7 +212,7 @@ function updateNotes() {
     }
 }
 
-window.onbeforeunload = function(){
+window.onbeforeunload = function () {
     let windowValues = Object.keys(windows)
     for (let i = 0; i < windowValues.length; ++i) {
         windowValues.close()

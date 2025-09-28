@@ -77,14 +77,24 @@ app.get('/api/get-note/:noteId', (req, res) => {
             return
         }
 
-        const note = fs.readFileSync("userdata/" + username + "/notes/" + req.params.noteId + ".json")
+        try {
+            const note = fs.readFileSync("userdata/" + username + "/notes/" + req.params.noteId + ".json")
 
-        res.json({
-            success: true,
-            data: JSON.parse(note)
-        })
+            res.json({
+                success: true,
+                data: JSON.parse(note)
+            })
 
-        return
+            return
+        } catch (e) {
+            res.json({
+                error: true
+            })
+
+            return
+        }
+
+
     }
 
     res.json({
@@ -113,7 +123,6 @@ app.post('/api/edit-note/:noteId', (req, res) => {
         }
 
         try {
-            console.log(req)
             if (!req.body?.id) {
                 res.json({
                     error: true
@@ -121,9 +130,10 @@ app.post('/api/edit-note/:noteId', (req, res) => {
 
                 return
             }
-            fs.writeFileSync("userdata/" + username + "/notes/" + req.body.id + ".json", JSON.stringify(req.body), 'utf8');
-            console.log('File written successfully synchronously.');
-            fs.writeFileSync("userdata/" + username + "/note-list.json", JSON.stringify(list), 'utf8');
+
+            fs.writeFileSync("userdata/" + username + "/notes/" + req.body.id + ".json", JSON.stringify(req.body), 'utf8')
+
+            fs.writeFileSync("userdata/" + username + "/note-list.json", JSON.stringify(list), 'utf8')
 
             res.json({
                 success: true
@@ -162,8 +172,7 @@ app.post('/api/delete-note/:noteId', (req, res) => {
         }
 
         try {
-            fs.unlinkSync("userdata/" + username + "/notes/" + req.params.noteId + ".json", req.body, 'utf8');
-            console.log('File deleted successfully synchronously.');
+            fs.unlinkSync("userdata/" + username + "/notes/" + req.params.noteId + ".json", req.body, 'utf8')
 
             res.json({
                 success: true
@@ -193,6 +202,8 @@ app.post('/api/sign-in', (req, res) => {
 
             res.cookie('username', req.body.username, { maxAge: ((60e3 * 60) * 24) * 14 })
             res.cookie('token', userData.token, { maxAge: (60e3 * 60) * 48 })
+
+            fs.writeFileSync("userdata/" + req.body.username + "/usrconfig.yaml", yaml.dump(userData))
 
             res.json({
                 success: true
